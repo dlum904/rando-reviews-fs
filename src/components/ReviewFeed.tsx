@@ -6,7 +6,7 @@ import ReviewCard from './ReviewCard.tsx';
  * @param {Review[]} reviews - The array of review objects
  * @returns {JSX.Element} - The ReviewFeed component
  */
-const ReviewFeed = ({ reviews }: { reviews: Review[] }) => {
+const ReviewFeed = ({ reviews, setSelectedReview }: { reviews: Review[], setSelectedReview: (review: Review) => void }) => {
   return (
     <div className="text-left flex flex-col alighn-center">
       
@@ -19,7 +19,7 @@ const ReviewFeed = ({ reviews }: { reviews: Review[] }) => {
         >
         { reviews.map((review) => {
           return (
-            <ReviewCard review={review} />
+            <ReviewCard review={review} setSelectedReview={setSelectedReview} />
           )
         })}
       </div>
