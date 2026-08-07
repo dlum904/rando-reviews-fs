@@ -19,7 +19,7 @@ const ReviewFeed = ({ reviews, setSelectedReview }: { reviews: Review[], setSele
         >
         { reviews.map((review) => {
           return (
-            <ReviewCard review={review} setSelectedReview={setSelectedReview} />
+            <ReviewCard key={review.id} review={review} setSelectedReview={setSelectedReview} />
           )
         })}
       </div>

@@ -7,6 +7,7 @@ import SearchBar from './components/SearchBar.tsx';
 import CategoryBar from './components/CategoryBar.tsx';
 import ReviewFeed from './components/ReviewFeed.tsx';
 import ReviewModal from './components/ReviewModal.tsx';
+import ReviewForm from './components/ReviewForm.tsx';
 import './App.css'
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
+  const [reviewFormToggle, setReviewFormToggle] = useState<boolean>(false);
   
   // const filteredReviews = reviews.filter((review) => review.subject.toLowerCase().includes(searchQuery.toLowerCase()));
   
@@ -28,15 +30,18 @@ const App = () => {
   console.log(filteredReviews);
   console.log(selectedReview);
 
+
   return (
 
     <div className="flex flex-col">
 
-      < Header />
+      < Header setReviewFormToggle={setReviewFormToggle} />
+
       {/* < Hero /> */}
       <main>
 
         < ReviewModal review={selectedReview ?? null} setSelectedReview={setSelectedReview} />
+        < ReviewForm reviews={reviews} setReviews={setReviews} reviewFormToggle={reviewFormToggle} setReviewFormToggle={setReviewFormToggle} />
         < CategoryBar selectedCategory={selectedCategory} setSelectedCategory= {setSelectedCategory} />
         < SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         < ReviewFeed reviews={filteredReviews} setSelectedReview={setSelectedReview} />

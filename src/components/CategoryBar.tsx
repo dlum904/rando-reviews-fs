@@ -25,7 +25,7 @@ const CategoryBar = ({ selectedCategory, setSelectedCategory } : { selectedCateg
 				))}
 			</ul>
 		</div>
-	)
+	);
 }
 
 export default CategoryBar;
