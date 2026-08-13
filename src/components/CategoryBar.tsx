@@ -5,15 +5,15 @@
  */
 const CategoryBar = ({ selectedCategory, setSelectedCategory } : { selectedCategory: string, setSelectedCategory: (category: string) => void } ) => {
 
-	const categoryClassNames = "border-2 border-blue-500 rounded-md px-2 py-.5 cursor-pointer hover:bg-blue-500 hover:text-white";
-	const selectedCategoryClassNames = "border-2 border-blue-500 rounded-md px-2 py-.5 cursor-pointer hover:bg-blue-500 hover:text-white bg-blue-500 text-white";
+	const categoryClassNames = "rounded-full border border-slate-700 bg-slate-900 px-4 py-1.5 text-sm text-slate-300 transition-colors cursor-pointer hover:border-blue-500 hover:bg-blue-500/10 hover:text-blue-300";
+	const selectedCategoryClassNames = "rounded-full border border-blue-500 bg-blue-600 px-4 py-1.5 text-sm font-medium text-white shadow-md shadow-blue-950/50 transition-colors cursor-pointer hover:bg-blue-500";
 
 	// TODO: Get categories from the database
 	const categories = ["All", "Food", "Movies", "Places", "Services", "Other"];
 
 	return (
-		<div className="border-2 border-red-500 p-4 flex flex-row justify-left items-baseline" >
-			<ul className="flex flex-row justify-left gap-4 items-center">
+		<div className="px-6 pt-6 flex flex-row justify-start items-baseline" >
+			<ul className="flex flex-row flex-wrap justify-start gap-2 items-center">
 				{categories.map((category: string) => (
 					<li
 						key={category}

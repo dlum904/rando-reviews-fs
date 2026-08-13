@@ -9,6 +9,32 @@ export const seedReviews: Review[] = [
     text: 'Best noise cancellation I have ever experienced. Comfortable for long flights and the battery lasts forever. Worth every penny.',
     author: 'Alex M.',
     date: '2026-03-10',
+    comments: [
+      {
+        id: '1',
+        text: 'Totally agree — I wore these on a 12-hour flight and barely heard the engines. Game changer.',
+        author: 'Priya N.',
+        date: '2026-03-11',
+        upVotes: 14,
+        downVotes: 1,
+      },
+      {
+        id: '2',
+        text: 'Do they still clamp a bit tight at first? Mine took a week to break in.',
+        author: 'Ben T.',
+        date: '2026-03-12',
+        upVotes: 6,
+        downVotes: 0,
+      },
+      {
+        id: '3',
+        text: 'Battery life is no joke. I charge mine maybe twice a month.',
+        author: 'Nina V.',
+        date: '2026-03-14',
+        upVotes: 9,
+        downVotes: 2,
+      },
+    ]
   },
   {
     id: '2',
@@ -18,6 +44,24 @@ export const seedReviews: Review[] = [
     text: 'Great pour-over and a cozy atmosphere. Gets crowded on weekends but the baristas are friendly and know their craft.',
     author: 'Jordan K.',
     date: '2026-03-08',
+    comments: [
+      {
+        id: '4',
+        text: 'Go on a weekday morning if you can. Weekend lines are brutal.',
+        author: 'Elena R.',
+        date: '2026-03-09',
+        upVotes: 11,
+        downVotes: 0,
+      },
+      {
+        id: '5',
+        text: 'Their New Orleans iced coffee is underrated. Skip the pastries though — hit Tartine instead.',
+        author: 'Marcus J.',
+        date: '2026-03-10',
+        upVotes: 7,
+        downVotes: 3,
+      },
+    ]
   },
   {
     id: '3',
@@ -27,6 +71,24 @@ export const seedReviews: Review[] = [
     text: 'A visual masterpiece. The sound design alone is worth seeing in IMAX. Villeneuve nailed the scale and emotion of the books.',
     author: 'Sam R.',
     date: '2026-03-05',
+    comments: [
+      {
+        id: '6',
+        text: 'Saw it in IMAX twice. The sandworm sequence still gives me chills.',
+        author: 'Aisha K.',
+        date: '2026-03-06',
+        upVotes: 22,
+        downVotes: 1,
+      },
+      {
+        id: '7',
+        text: 'Book fans: they condensed a lot, but the spirit is there. Zendaya was better than I expected.',
+        author: 'Owen P.',
+        date: '2026-03-07',
+        upVotes: 8,
+        downVotes: 4,
+      },
+    ]
   },
   {
     id: '4',
@@ -36,6 +98,16 @@ export const seedReviews: Review[] = [
     text: 'Fixed the leak quickly but arrived 45 minutes late without calling. Work quality was solid, communication could be better.',
     author: 'Taylor W.',
     date: '2026-03-02',
+    comments: [
+      {
+        id: '8',
+        text: 'Same experience. Great work, terrible at texts. I just build in an extra hour now.',
+        author: 'Kim L.',
+        date: '2026-03-03',
+        upVotes: 5,
+        downVotes: 0,
+      },
+    ]
   },
   {
     id: '5',
@@ -45,6 +117,32 @@ export const seedReviews: Review[] = [
     text: 'Massive, beautiful, and always something new to discover. Perfect for a morning jog or an afternoon picnic with friends.',
     author: 'Casey L.',
     date: '2026-02-28',
+    comments: [
+      {
+        id: '9',
+        text: 'The bison paddock is such a weird delight. Also, Stow Lake at sunset is unbeatable.',
+        author: 'Diego S.',
+        date: '2026-03-01',
+        upVotes: 16,
+        downVotes: 0,
+      },
+      {
+        id: '10',
+        text: 'Watch out for the fog in the afternoon — it rolls in fast near Ocean Beach.',
+        author: 'Hannah G.',
+        date: '2026-03-02',
+        upVotes: 4,
+        downVotes: 1,
+      },
+      {
+        id: '11',
+        text: 'Brought a picnic last Sunday and it was packed. Still worth it.',
+        author: 'Leo C.',
+        date: '2026-03-04',
+        upVotes: 3,
+        downVotes: 0,
+      },
+    ]
   },
   {
     id: '6',
@@ -54,6 +152,24 @@ export const seedReviews: Review[] = [
     text: 'Game changer for weeknight dinners. Rice, stews, and meal prep are all faster. The manual is confusing at first.',
     author: 'Morgan P.',
     date: '2026-02-25',
+    comments: [
+      {
+        id: '12',
+        text: 'Ignore the manual and watch a 10-minute YouTube video. You will never look back.',
+        author: 'Sofia A.',
+        date: '2026-02-26',
+        upVotes: 19,
+        downVotes: 2,
+      },
+      {
+        id: '13',
+        text: 'Yogurt mode is surprisingly good if you have the time.',
+        author: 'Greg W.',
+        date: '2026-02-27',
+        upVotes: 4,
+        downVotes: 1,
+      },
+    ]
   },
   {
     id: '7',
@@ -63,6 +179,24 @@ export const seedReviews: Review[] = [
     text: 'The morning bun is legendary for a reason. Line moves fast and everything tastes freshly baked. A must-visit.',
     author: 'Riley S.',
     date: '2026-02-20',
+    comments: [
+      {
+        id: '14',
+        text: 'Morning bun AND the country loaf. Get both. Thank me later.',
+        author: 'Maya F.',
+        date: '2026-02-21',
+        upVotes: 13,
+        downVotes: 0,
+      },
+      {
+        id: '15',
+        text: 'They sell out of morning buns by 10am on weekends. Get there early.',
+        author: 'Chris D.',
+        date: '2026-02-22',
+        upVotes: 10,
+        downVotes: 1,
+      },
+    ]
   },
   {
     id: '8',
@@ -72,6 +206,32 @@ export const seedReviews: Review[] = [
     text: 'Still one of the most intense shows on TV. This season leans more experimental — not everyone will love it, but I did.',
     author: 'Dana H.',
     date: '2026-02-15',
+    comments: [
+      {
+        id: '16',
+        text: 'The Fishes episode from S2 still haunts me. S3 is slower but the kitchen chaos is chef\'s kiss.',
+        author: 'Ivy M.',
+        date: '2026-02-16',
+        upVotes: 18,
+        downVotes: 3,
+      },
+      {
+        id: '17',
+        text: 'Too many montages for me. Felt like a two-hour music video with a plot.',
+        author: 'Nate B.',
+        date: '2026-02-18',
+        upVotes: 6,
+        downVotes: 9,
+      },
+      {
+        id: '18',
+        text: 'Carmy\'s arc this season actually landed for me. Give it a rewatch.',
+        author: 'Zoe Q.',
+        date: '2026-02-19',
+        upVotes: 7,
+        downVotes: 2,
+      },
+    ]
   },
   {
     id: '9',
@@ -81,6 +241,16 @@ export const seedReviews: Review[] = [
     text: 'Stunning Victorian homes and great views of the bay. Quiet, walkable, and full of hidden gem restaurants nearby.',
     author: 'Chris B.',
     date: '2026-02-10',
+    comments: [
+      {
+        id: '19',
+        text: 'Alta Plaza Park at golden hour is one of the best views in the city.',
+        author: 'Liam O.',
+        date: '2026-02-12',
+        upVotes: 12,
+        downVotes: 0,
+      },
+    ]
   },
   {
     id: '10',
@@ -90,5 +260,23 @@ export const seedReviews: Review[] = [
     text: 'Charges my phone three times over and fits in a jacket pocket. Reliable travel companion for years now.',
     author: 'Jamie F.',
     date: '2026-02-05',
+    comments: [
+      {
+        id: '20',
+        text: 'Mine lasted four years of daily use before the ports got loose. Still buying Anker.',
+        author: 'Tasha E.',
+        date: '2026-02-07',
+        upVotes: 8,
+        downVotes: 0,
+      },
+      {
+        id: '21',
+        text: 'Does it charge a laptop? Curious before I buy.',
+        author: 'Raj P.',
+        date: '2026-02-08',
+        upVotes: 2,
+        downVotes: 0,
+      },
+    ]
   },
 ]

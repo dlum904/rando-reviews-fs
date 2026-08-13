@@ -1,3 +1,11 @@
+type Comment = {
+	id: string;
+	text: string;
+	author: string;
+	date: string;
+	upVotes?: number;
+	downVotes?: number;
+}
 
 type Review = {
 	id: string;
@@ -8,7 +16,7 @@ type Review = {
 	text: string;
 	date: string;
 	userImage?: string;
-	thread?: string[]
+	comments?: Comment[];
 }
 
-export { type Review };
+export { type Review, type Comment };

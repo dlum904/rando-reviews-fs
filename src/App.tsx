@@ -33,14 +33,15 @@ const App = () => {
 
   return (
 
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-svh bg-slate-950 text-slate-300">
 
       < Header setReviewFormToggle={setReviewFormToggle} />
 
       {/* < Hero /> */}
-      <main>
+      <main className="flex-1">
 
-        < ReviewModal review={selectedReview ?? null} setSelectedReview={setSelectedReview} />
+        {/* Only render the review modal if a review is selected */}
+        {selectedReview && < ReviewModal key={selectedReview.id} review={selectedReview} setSelectedReview={setSelectedReview} />}
         < ReviewForm reviews={reviews} setReviews={setReviews} reviewFormToggle={reviewFormToggle} setReviewFormToggle={setReviewFormToggle} />
         < CategoryBar selectedCategory={selectedCategory} setSelectedCategory= {setSelectedCategory} />
         < SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />

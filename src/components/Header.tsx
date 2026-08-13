@@ -2,13 +2,26 @@ import { FaUserCircle } from "react-icons/fa";
 
 const Header = ({ setReviewFormToggle }: { setReviewFormToggle: (reviewFormToggle: boolean) => void }) => {
   return (
-    <header>
-      <div className="flex flex-row justify-between items-center">
-        <h1>Rando Reviews</h1>
+    <header className="sticky top-0 z-20 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
+      <div className="flex flex-row justify-between items-center gap-4 px-6 py-3">
+
+        <h1 className="!my-0 !text-3xl !tracking-tight max-md:!text-2xl">
+          Rando <span className="text-blue-400">Reviews</span>
+        </h1>
+
         <div className="flex flex-row justify-between items-center gap-4">
-          <button className="p-2 bg-blue-500 rounded-md text-white hover:bg-blue-600 cursor-pointer" onClick={() => setReviewFormToggle(true)} >Write a Review</button>
-          <FaUserCircle className="w-6 h-6 text-gray-500" />
+
+          <button
+            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-lg shadow-blue-950/50 transition-colors hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 cursor-pointer"
+            onClick={() => setReviewFormToggle(true)}
+          >
+            Write a Review
+          </button>
+
+          <FaUserCircle className="w-7 h-7 text-slate-500 transition-colors hover:text-blue-400 cursor-pointer" />
+
         </div>
+
       </div>
     </header>
   )
