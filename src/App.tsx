@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import Header from './components/Header.tsx';
 import Footer from './components/Footer.tsx';
 import type { Review } from './types/review.tsx';
@@ -18,9 +18,7 @@ const App = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
   const [reviewFormToggle, setReviewFormToggle] = useState<boolean>(false);
-  
-  // const filteredReviews = reviews.filter((review) => review.subject.toLowerCase().includes(searchQuery.toLowerCase()));
-  
+
   // Filter reviews based on search query and selected category
   // useMemo so we only re-filter when the reviews, selected category, or search query changes
   const filteredReviews = useMemo(() => {
@@ -28,8 +26,6 @@ const App = () => {
   }, [reviews, selectedCategory, searchQuery]);
 
   console.log(filteredReviews);
-  console.log(selectedReview);
-
 
   return (
 
@@ -37,7 +33,6 @@ const App = () => {
 
       < Header setReviewFormToggle={setReviewFormToggle} />
 
-      {/* < Hero /> */}
       <main className="flex-1">
 
         {/* Only render the review modal if a review is selected */}

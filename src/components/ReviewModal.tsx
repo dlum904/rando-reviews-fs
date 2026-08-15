@@ -11,8 +11,16 @@ const ReviewModal = ({ review, setSelectedReview }: ReviewModalProps) => {
 
 	const [comments, setComments] = useState<Comment[]>(review?.comments || []);
 
+
+	/**
+	 * Handle comment vote
+	 * @param {string} commentId - The id of the comment
+	 * @param {'up' | 'down'} vote - The vote to be cast
+	 */
 	const handleCommentVote = (commentId: string, vote: 'up' | 'down') => {
 
+		// TODO: Users should only be able to upvote/downvote once.
+		// Add array of upvoted/downvoted comments to User's data.
 		
 		const currentComment = comments.find(comment => comment.id === commentId);
 
