@@ -5,14 +5,17 @@ Currently, the Frontend is mostly built.
 Planning to add a Backend using Node.js
 
 THE PLAN:
-	rando-reviews-fs
-	├── api/                  <-- Your Node.js backend endpoints live here
-	│   ├── users.js          <-- maps to ://yourdomain.com
-	│   └── posts.js          <-- maps to ://yourdomain.com
-	├── src/                  <-- Your Vite React frontend files
-	├── index.html
-	├── package.json
-	└── vercel.json           <-- Routing configurations
+my-review-app/       (Root Git Repository)
+├── frontend/        (React/Vite project)
+│   ├── src/
+│   ├── package.json
+│   └── vite.config.js
+├── backend/         (Express project)
+│   ├── controllers/
+│   ├── package.json
+│   └── index.js
+└── README.md        (Explains the whole project)
+
 
 
 NOTE:
