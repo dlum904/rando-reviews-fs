@@ -1,0 +1,10 @@
+{
+  "_init": {
+    "features": [
+      "database",
+      "auth"
+    ]
+  },
+  "orgId": "org-nameless-scene-69539920",
+  "projectId": "purple-unit-90315299"
+}
