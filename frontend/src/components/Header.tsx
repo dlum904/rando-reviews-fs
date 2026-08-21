@@ -1,6 +1,21 @@
 import { FaUserCircle } from "react-icons/fa";
 
-const Header = ({ setReviewFormToggle }: { setReviewFormToggle: (reviewFormToggle: boolean) => void }) => {
+type HeaderUser = {
+  email?: string | null;
+  name?: string | null;
+};
+
+const Header = ({
+  setReviewFormToggle,
+  user,
+  onOpenAuth,
+  onSignOut,
+}: {
+  setReviewFormToggle: (reviewFormToggle: boolean) => void;
+  user: HeaderUser | null;
+  onOpenAuth: () => void;
+  onSignOut: () => void;
+}) => {
   return (
     <header className="sticky top-0 z-20 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
       <div className="flex flex-row justify-between items-center gap-4 px-6 py-3">
@@ -18,7 +33,27 @@ const Header = ({ setReviewFormToggle }: { setReviewFormToggle: (reviewFormToggl
             Write a Review
           </button>
 
-          <FaUserCircle className="w-7 h-7 text-slate-500 transition-colors hover:text-blue-400 cursor-pointer" />
+          {user ? (
+            <button
+              type="button"
+              className="flex items-center gap-2 text-sm text-slate-300 hover:text-blue-400 cursor-pointer"
+              onClick={onSignOut}
+              title="Sign out"
+            >
+              <FaUserCircle className="w-7 h-7" />
+              <span className="max-md:hidden">{user.email ?? user.name ?? "Account"}</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="flex items-center gap-2 text-sm text-slate-300 hover:text-blue-400 cursor-pointer"
+              onClick={onOpenAuth}
+              title="Sign in"
+            >
+              <FaUserCircle className="w-7 h-7 text-slate-500" />
+              <span className="max-md:hidden">Sign in</span>
+            </button>
+          )}
 
         </div>
 

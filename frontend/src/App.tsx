@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import Header from './components/Header.tsx';
 import Footer from './components/Footer.tsx';
 import type { Review } from './types/review.tsx';
@@ -8,7 +8,14 @@ import CategoryBar from './components/CategoryBar.tsx';
 import ReviewFeed from './components/ReviewFeed.tsx';
 import ReviewModal from './components/ReviewModal.tsx';
 import ReviewForm from './components/ReviewForm.tsx';
+import AuthModal from './components/AuthModal.tsx';
+import { authClient } from './auth';
 import './App.css'
+
+type AuthUser = {
+  email?: string | null;
+  name?: string | null;
+};
 
 const App = () => {
 
@@ -18,6 +25,26 @@ const App = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
   const [reviewFormToggle, setReviewFormToggle] = useState<boolean>(false);
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+
+  const refreshSession = useCallback(async () => {
+    const result = await authClient.getSession();
+    if (result.data?.user) {
+      setUser(result.data.user);
+      return;
+    }
+    setUser(null);
+  }, []);
+
+  useEffect(() => {
+    void refreshSession();
+  }, [refreshSession]);
+
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    setUser(null);
+  };
 
   // Filter reviews based on search query and selected category
   // useMemo so we only re-filter when the reviews, selected category, or search query changes
@@ -31,10 +58,24 @@ const App = () => {
 
     <div className="flex flex-col min-h-svh bg-slate-950 text-slate-300">
 
-      < Header setReviewFormToggle={setReviewFormToggle} />
+      < Header
+        setReviewFormToggle={setReviewFormToggle}
+        user={user}
+        onOpenAuth={() => setAuthModalOpen(true)}
+        onSignOut={handleSignOut}
+      />
 
       <main className="flex-1">
 
+        {authModalOpen && (
+          <AuthModal
+            onClose={() => setAuthModalOpen(false)}
+            onSignedIn={async () => {
+              await refreshSession();
+              setAuthModalOpen(false);
+            }}
+          />
+        )}
         {/* Only render the review modal if a review is selected */}
         {selectedReview && < ReviewModal key={selectedReview.id} review={selectedReview} setSelectedReview={setSelectedReview} />}
         < ReviewForm reviews={reviews} setReviews={setReviews} reviewFormToggle={reviewFormToggle} setReviewFormToggle={setReviewFormToggle} />
