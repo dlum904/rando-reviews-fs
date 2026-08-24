@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: ".env.local" });
 
+// Helper function to get required environment variables
 export function requiredEnv(name) {
   const value = process.env[name]?.trim().replace(/^['"]|['"]$/g, "");
   if (!value) {
