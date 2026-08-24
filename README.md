@@ -1,8 +1,9 @@
 This is my React/typescript app I made to brush up on Full Stack Development.
 
 Currently, the Frontend is mostly built.
+Planning to add a Backend using express.js
+Planning on wrapping backend code in Vercel serverless function.
 
-Planning to add a Backend using Node.js
 
 THE PLAN:
 my-review-app/       (Root Git Repository)
@@ -17,8 +18,20 @@ my-review-app/       (Root Git Repository)
 └── README.md        (Explains the whole project)
 
 
-
 NOTE:
 CSS styling was done using tailwindcss and was mostly done with AI.
 Everything else was coded manually, with some AI assistance for finding syntax issues.
 
+
+
+// BE ROUTES:
+reviews
+/reviews
+
+comments
+/comments
+
+authroutes
+/auth/register
+/auth/login
+/auth/logout
