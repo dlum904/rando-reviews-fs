@@ -22,9 +22,10 @@ NOTE:
 CSS styling was done using tailwindcss and was mostly done with AI.
 Everything else was coded manually, with some AI assistance for finding syntax issues.
 
+///////////////////////////////////////////
 
+PLANNED BE ROUTES:
 
-// BE ROUTES:
 reviews
 /reviews
 
@@ -35,3 +36,36 @@ authroutes
 /auth/register
 /auth/login
 /auth/logout
+
+
+//////////////////////////////////////////
+
+PLANNED SCHEMAS:
+
+Comment = {
+	id: string,
+	text: string,
+	author: User
+	date: string,
+	upVotes?: number,
+	downVotes?: number,
+}
+
+Review = {
+	id: string,
+	author: User,
+	subject: string,
+	category: string,
+	rating: number,
+	text: string,
+	date: string,
+	comments?: Comment[],
+}
+
+User = {
+	id: string;
+	username: string,
+	password: string,
+	reviews?: Review[],
+	comments?: Comment[],
+}

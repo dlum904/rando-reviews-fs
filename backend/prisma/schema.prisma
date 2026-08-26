@@ -4,10 +4,59 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+
+
+// 1 USER has many REVIEWS
+// 1 USER has many COMMENTS
+// 1 REVIEW has 1 USER
+// 1 REVIEW has many COMMENTS
+// 1 COMMENT has 1 USER
+// 1 COMMENT has 1 REVIEW
+
+
+// USER
+model User {
+  id          String    @id @default(uuid())
+  username    String    @unique
+  password    String
+  reviews     Review[]
+  comments    Comment[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+}
+
+//REVIEW
+model Review {
+  id          String    @id @default(uuid())
+  title       String
+  text        String
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    String
+  category    String
+  rating      Int
+  comments    Comment[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// COMMENT
+model Comment {
+  id          String   @id @default(uuid())
+  text        String
+  review      Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  reviewId    String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    String
+  upVotes     Int      @default(0)
+  downVotes   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
