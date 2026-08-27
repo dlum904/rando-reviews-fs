@@ -40,7 +40,7 @@ model Review {
   text        String
   author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String
-  category    String
+  category    Category
   rating      Int
   comments    Comment[]
   createdAt   DateTime  @default(now())
@@ -59,4 +59,12 @@ model Comment {
   downVotes   Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+enum Category {
+  FOOD
+  MOVIES
+  PLACES
+  SERVICES
+  OTHER
 }

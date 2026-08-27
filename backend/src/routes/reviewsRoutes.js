@@ -1,4 +1,6 @@
 import express from 'express';
+import validateRequest from '../middleware/validateRequest.js';
+import reviewSchema from '../validators/reviewValidator.js';
 
 const router = express.Router();
 
@@ -13,7 +15,8 @@ router.get('/:reviewId', (req, res) => {
 });
 
 // POST a new review
-router.post('/add', (req, res) => {
+// Validate the request body against the zod schema specified in reviewValidator.js
+router.post('/add', validateRequest(reviewSchema), (req, res) => {
 	res.json({ message: 'Create a new review' });
 });
 
