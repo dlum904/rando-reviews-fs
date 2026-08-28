@@ -3,7 +3,7 @@
  * @param {z.ZodSchema} schema - The zod schema to validate the request body against
  * @returns {function} - The middleware function
  */
-export const validateRequest = (schema) => {
+const validateRequest = (schema) => {
 
 	// We wrap the middle function this way to allow us to pass in the schema as a parameter
 	return (req, res, next) => {
@@ -45,3 +45,5 @@ export const validateRequest = (schema) => {
 	}
 
 }
+
+export default validateRequest;
