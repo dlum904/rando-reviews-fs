@@ -19,7 +19,7 @@ router.use(authMiddleware);
 // Validate the request body against the zod schema specified in reviewValidator.js
 router.post('/add', validateRequest(reviewSchema), createReview);
 
-// // PUT an existing review
+// // PUT an existing review TODO
 // router.put('/update/:reviewId', (req, res) => {
 // 	res.json({ message: 'Update the review with id of ' + req.params.reviewId });
 // });
