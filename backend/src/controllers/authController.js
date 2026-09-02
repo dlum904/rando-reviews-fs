@@ -3,6 +3,31 @@ import bcrypt from 'bcryptjs';
 import generateToken from '../utils/generateToken.js';
 
 /**
+ * Gets a user's profile
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @returns {Object} - The response object
+ */
+const getUser = async (req, res) => {
+
+	console.log('authController.js: getUser called', req.user);
+
+	const user = await prisma.user.findUnique({
+		where: { id: req.user.id },
+	});
+
+	if (!user) {
+
+		return res.status(404).json({ message: 'User not found' });
+
+	} else {
+
+		return res.status(200).json({ user: { id: user.id, username: user.username } });
+
+	}
+}
+
+/**
  * Registers a new user
  * @param {Object} req - The request object
  * @param {Object} res - The response object
@@ -53,6 +78,7 @@ const register = async (req, res) => {
 		// If the user is created successfully, return a success response
 		if (user) {
 
+			console.log('Username created');
 			// Generate a JWT token for the user and set it as a cookie in the response
 			const token = generateToken(user.id, res);
 
@@ -170,4 +196,4 @@ const logout = async (req, res) => {
 		);
 }
 
-export { register, login, logout };
+export { getUser, register, login, logout };

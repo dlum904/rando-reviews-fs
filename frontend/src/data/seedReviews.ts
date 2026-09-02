@@ -3,7 +3,7 @@ import type { Review } from '../types/review'
 export const seedReviews: Review[] = [
   {
     id: '1',
-    subject: 'Sony WH-1000XM5 Headphones',
+    title: 'Sony WH-1000XM5 Headphones',
     category: 'Products',
     rating: 5,
     text: 'Best noise cancellation I have ever experienced. Comfortable for long flights and the battery lasts forever. Worth every penny.',
@@ -38,7 +38,7 @@ export const seedReviews: Review[] = [
   },
   {
     id: '2',
-    subject: 'Blue Bottle Coffee - Hayes Valley',
+    title: 'Blue Bottle Coffee - Hayes Valley',
     category: 'Food',
     rating: 4,
     text: 'Great pour-over and a cozy atmosphere. Gets crowded on weekends but the baristas are friendly and know their craft.',
@@ -65,7 +65,7 @@ export const seedReviews: Review[] = [
   },
   {
     id: '3',
-    subject: 'Dune: Part Two',
+    title: 'Dune: Part Two',
     category: 'Movies',
     rating: 5,
     text: 'A visual masterpiece. The sound design alone is worth seeing in IMAX. Villeneuve nailed the scale and emotion of the books.',
@@ -92,7 +92,7 @@ export const seedReviews: Review[] = [
   },
   {
     id: '4',
-    subject: 'Joe\'s Plumbing',
+    title: 'Joe\'s Plumbing',
     category: 'Services',
     rating: 3,
     text: 'Fixed the leak quickly but arrived 45 minutes late without calling. Work quality was solid, communication could be better.',
@@ -111,7 +111,7 @@ export const seedReviews: Review[] = [
   },
   {
     id: '5',
-    subject: 'Golden Gate Park',
+    title: 'Golden Gate Park',
     category: 'Places',
     rating: 5,
     text: 'Massive, beautiful, and always something new to discover. Perfect for a morning jog or an afternoon picnic with friends.',
@@ -146,7 +146,7 @@ export const seedReviews: Review[] = [
   },
   {
     id: '6',
-    subject: 'Instant Pot Duo',
+    title: 'Instant Pot Duo',
     category: 'Products',
     rating: 4,
     text: 'Game changer for weeknight dinners. Rice, stews, and meal prep are all faster. The manual is confusing at first.',
@@ -173,7 +173,7 @@ export const seedReviews: Review[] = [
   },
   {
     id: '7',
-    subject: 'Tartine Bakery',
+    title: 'Tartine Bakery',
     category: 'Food',
     rating: 5,
     text: 'The morning bun is legendary for a reason. Line moves fast and everything tastes freshly baked. A must-visit.',
@@ -200,7 +200,7 @@ export const seedReviews: Review[] = [
   },
   {
     id: '8',
-    subject: 'The Bear (Season 3)',
+    title: 'The Bear (Season 3)',
     category: 'Other',
     rating: 4,
     text: 'Still one of the most intense shows on TV. This season leans more experimental — not everyone will love it, but I did.',
@@ -235,7 +235,7 @@ export const seedReviews: Review[] = [
   },
   {
     id: '9',
-    subject: 'Pacific Heights Neighborhood',
+    title: 'Pacific Heights Neighborhood',
     category: 'Places',
     rating: 4,
     text: 'Stunning Victorian homes and great views of the bay. Quiet, walkable, and full of hidden gem restaurants nearby.',
@@ -254,7 +254,7 @@ export const seedReviews: Review[] = [
   },
   {
     id: '10',
-    subject: 'Anker PowerCore 20000',
+    title: 'Anker PowerCore 20000',
     category: 'Products',
     rating: 5,
     text: 'Charges my phone three times over and fits in a jacket pocket. Reliable travel companion for years now.',

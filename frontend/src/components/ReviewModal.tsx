@@ -9,7 +9,7 @@ type ReviewModalProps = {
 
 const ReviewModal = ({ review, setSelectedReview }: ReviewModalProps) => {
 
-	const [comments, setComments] = useState<Comment[]>(review?.comments || []);
+	const [comments, setComments] = useState<Comment[]>(review?.comments || []); // TODO: Fetch and POST comments
 
 
 	/**
@@ -65,7 +65,7 @@ const ReviewModal = ({ review, setSelectedReview }: ReviewModalProps) => {
 
 					</div>
 
-					<h2 className="shrink-0 mt-3 text-left">{review.subject}</h2>
+					<h2 className="shrink-0 mt-3 text-left">{review.title}</h2>
 
 					<div className="overflow-y-auto min-h-0 flex-1 pr-1">
 

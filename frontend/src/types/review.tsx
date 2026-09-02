@@ -10,7 +10,7 @@ type Comment = {
 type Review = {
 	id: string;
 	author: string;
-	subject: string;
+	title: string;
 	category: string;
 	rating: number;
 	text: string;
@@ -19,4 +19,9 @@ type Review = {
 	comments?: Comment[];
 }
 
-export { type Review, type Comment };
+type User = {
+	id: string;
+	username: string;
+} | null;
+
+export { type Review, type Comment, type User };
