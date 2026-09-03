@@ -35,6 +35,7 @@ const getUser = async (req, res) => {
  */
 const register = async (req, res) => {
 
+	console.log("authController.js: register called:", req);
 	const body = req.body;
 	console.log("authController.js: register called:", body);
 

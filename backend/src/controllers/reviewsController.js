@@ -1,5 +1,6 @@
 ;import { prisma } from '../config/db.js';
 import reviewSchema from '../validators/reviewValidator.js';
+import { reviewInclude, serializeReview } from '../utils/serializers.js';
 
 
 /**
@@ -14,12 +15,15 @@ const getReviews = async (req, res) => {
 
 	try {
 
-		const reviews = await prisma.review.findMany();
+		const reviews = await prisma.review.findMany({
+			orderBy: { createdAt: 'desc' },
+			include: reviewInclude
+		});
 		console.log("reviewsController.js: getReviews reviews:", reviews);
 
 		return res
 			.status(200)
-			.json({ message: 'Reviews fetched successfully', reviews });
+			.json({ message: 'Reviews fetched successfully', reviews: reviews.map(serializeReview) });
 
 	} catch (error) {
 
@@ -55,7 +59,8 @@ const getReviewById = async (req, res) => {
 	try {
 
 		const review = await prisma.review.findUnique({
-			where: { id: reviewId }
+			where: { id: reviewId },
+			include: reviewInclude
 		});
 	
 		if (!review) {
@@ -68,7 +73,7 @@ const getReviewById = async (req, res) => {
 	
 			return res
 				.status(200)
-				.json({ message: 'Review found', review });
+				.json({ message: 'Review found', review: serializeReview(review) });
 	
 		}
 
@@ -116,12 +121,13 @@ const createReview = async (req, res) => {
 					category,
 					rating,
 					authorId: userId,
-				}
+				},
+				include: reviewInclude
 			});
 
 			return res
 				.status(201)
-				.json({ message: 'Review created successfully', review });
+				.json({ message: 'Review created successfully', review: serializeReview(review) });
 
 		} catch (error) {
 

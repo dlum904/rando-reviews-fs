@@ -19,7 +19,7 @@ const ReviewCard = ({ review, setSelectedReview }: { review: Review, setSelected
 				<p className="text-xs text-slate-500">{review.date}</p>
 			</div>
 
-			<h2 className="!mb-0 transition-colors group-hover:text-blue-300">{review.subject}</h2>
+			<h2 className="!mb-0 transition-colors group-hover:text-blue-300">{review.title}</h2>
 
 			{/* TODO: Add a star rating component */}
 			<p className="flex items-center gap-1.5 text-sm text-blue-400">

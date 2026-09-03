@@ -9,7 +9,7 @@ const CategoryBar = ({ selectedCategory, setSelectedCategory } : { selectedCateg
 	const selectedCategoryClassNames = "rounded-full border border-blue-500 bg-blue-600 px-4 py-1.5 text-sm font-medium text-white shadow-md shadow-blue-950/50 transition-colors cursor-pointer hover:bg-blue-500";
 
 	// TODO: Get categories from the database
-	const categories = ["All", "Food", "Movies", "Places", "Services", "Other"];
+	const categories = ["All", "Food", "Movies", "Places", "Services", "Products", "Other"];
 
 	return (
 		<div className="px-6 pt-6 flex flex-row justify-start items-baseline" >
@@ -20,7 +20,7 @@ const CategoryBar = ({ selectedCategory, setSelectedCategory } : { selectedCateg
 						className={
 							category.toLocaleLowerCase() === selectedCategory.toLocaleLowerCase() ? selectedCategoryClassNames : categoryClassNames
 						}
-						onClick={() => setSelectedCategory(category)}>{category}
+						onClick={() => setSelectedCategory(category.toUpperCase())}>{category}
 					</li>
 				))}
 			</ul>

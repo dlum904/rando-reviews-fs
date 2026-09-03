@@ -1,5 +1,6 @@
 ;import { prisma } from '../config/db.js';
 import commentSchema from '../validators/commentValidator.js';
+import { commentInclude, serializeComment } from '../utils/serializers.js';
 
 
 /**
@@ -14,12 +15,15 @@ const getComments = async (req, res) => {
 
 	try {
 
-		const comments = await prisma.comment.findMany();
+		const comments = await prisma.comment.findMany({
+			orderBy: { createdAt: 'asc' },
+			include: commentInclude
+		});
 		console.log("commentsController.js: getComments comments:", comments);
 
 		return res
 			.status(200)
-			.json({ message: 'Comments fetched successfully', comments });
+			.json({ message: 'Comments fetched successfully', comments: comments.map(serializeComment) });
 
 	} catch (error) {
 
@@ -55,10 +59,11 @@ const getCommentById = async (req, res) => {
 	try {
 
 		const comment = await prisma.comment.findUnique({
-			where: { id: commentId }
+			where: { id: commentId },
+			include: commentInclude
 		});
 	
-		if (!review) {
+		if (!comment) {
 	
 			return res
 				.status(404)
@@ -68,7 +73,7 @@ const getCommentById = async (req, res) => {
 	
 			return res
 				.status(200)
-				.json({ message: 'Comment found', comment });
+				.json({ message: 'Comment found', comment: serializeComment(comment) });
 	
 		}
 
@@ -114,12 +119,13 @@ const createComment = async (req, res) => {
 					text,
 					reviewId,
 					authorId: userId,
-				}
+				},
+				include: commentInclude
 			});
 
 			return res
 				.status(201)
-				.json({ message: 'Comment created successfully', comment });
+				.json({ message: 'Comment created successfully', comment: serializeComment(comment) });
 
 		} catch (error) {
 

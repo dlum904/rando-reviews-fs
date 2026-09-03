@@ -3,7 +3,7 @@ import Header from './components/Header.tsx';
 import Footer from './components/Footer.tsx';
 import type { Review, User } from './types/review.tsx';
 // import { seedReviews } from './data/seedReviews.ts';
-import AuthModal from './components/authModal.tsx';
+import AuthModal from './components/AuthModal.tsx';
 import SearchBar from './components/SearchBar.tsx';
 import CategoryBar from './components/CategoryBar.tsx';
 import ReviewFeed from './components/ReviewFeed.tsx';
@@ -11,12 +11,14 @@ import ReviewModal from './components/ReviewModal.tsx';
 import ReviewForm from './components/ReviewForm.tsx';
 import './App.css'
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const App = () => {
 
   const [user, setUser] = useState<User | null>(null);
   const [reviews, setReviews] = useState<Review[] | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
   const [reviewFormToggle, setReviewFormToggle] = useState<boolean>(false);
   const [authModal, setAuthModal] = useState<boolean>(false);
@@ -29,7 +31,7 @@ const App = () => {
 
       try {
 
-        const res = await fetch('http://localhost:5001/auth/getUser', {
+        const res = await fetch(`${API_URL}/auth/getUser`, {
           credentials: 'include',
         });
 
@@ -82,7 +84,7 @@ const App = () => {
 
       try {
 
-        const res = await fetch('http://localhost:5001/reviews');
+        const res = await fetch(`${API_URL}/reviews`);
   
         if (!res.ok) {
 
@@ -121,7 +123,7 @@ const App = () => {
     console.log('App.tsx: filteredReviews called');
     if (reviews) {
       console.log('App.tsx: reviews fetched', reviews);
-      return reviews.filter((review) => review.title.toLowerCase().includes(searchQuery.toLowerCase()) && (selectedCategory === 'All' || review.category === selectedCategory));
+      return reviews.filter((review) => review.title.toLowerCase().includes(searchQuery.toLowerCase()) && (selectedCategory === 'ALL' || review.category === selectedCategory));
     }
   }, [reviews, selectedCategory, searchQuery]);
   console.log('App.tsx: filteredReviews', filteredReviews);
