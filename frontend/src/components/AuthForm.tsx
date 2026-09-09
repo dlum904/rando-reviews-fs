@@ -63,6 +63,7 @@ const AuthForm = ({ loginOrRegister } : { loginOrRegister: 'login' | 'register' 
 		} else {
 			console.log('register');
 		}
+
 		submitForm(username, password);
 	}
 
@@ -102,6 +103,7 @@ const AuthForm = ({ loginOrRegister } : { loginOrRegister: 'login' | 'register' 
 		}
 
 	}
+	
 	return (
 
 		<form className="flex flex-col gap-3" onSubmit={handleSubmit}>

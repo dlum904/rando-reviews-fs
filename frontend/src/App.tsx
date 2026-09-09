@@ -120,15 +120,17 @@ const App = () => {
   // Filter reviews based on search query and selected category
   // useMemo so we only re-filter when the reviews, selected category, or search query changes
   const filteredReviews = useMemo(() => {
+
     console.log('App.tsx: filteredReviews called');
+
     if (reviews) {
       console.log('App.tsx: reviews fetched', reviews);
       return reviews.filter((review) => review.title.toLowerCase().includes(searchQuery.toLowerCase()) && (selectedCategory === 'ALL' || review.category === selectedCategory));
     }
+    
   }, [reviews, selectedCategory, searchQuery]);
-  console.log('App.tsx: filteredReviews', filteredReviews);
 
-  console.log(filteredReviews);
+  console.log('App.tsx: filteredReviews', filteredReviews);
 
   return (
 

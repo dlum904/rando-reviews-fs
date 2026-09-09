@@ -1,7 +1,12 @@
 import { FaUserCircle } from "react-icons/fa";
 import type { User } from '../types/review.tsx';
+import AccountDropdown from './AccountDropdown.tsx';
+import { useState } from "react";
 
 const Header = ({ user, setReviewFormToggle, setAuthModal }: { user: User, setReviewFormToggle: (reviewFormToggle: boolean) => void, setAuthModal: (authModal: boolean) => void }) => {
+
+  const [accountDropdownToggle, setAccountDropdownToggle] = useState(false);
+  
   return (
     <header className="sticky top-0 z-20 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
       <div className="flex flex-row justify-between items-center gap-4 px-6 py-3">
@@ -20,7 +25,8 @@ const Header = ({ user, setReviewFormToggle, setAuthModal }: { user: User, setRe
               >
               Write a Review
               </button>
-              <FaUserCircle className="w-7 h-7 text-slate-500 transition-colors hover:text-blue-400 cursor-pointer" />
+              <FaUserCircle className="w-7 h-7 text-slate-500 transition-colors hover:text-blue-400 cursor-pointer" onClick={() => setAccountDropdownToggle(!accountDropdownToggle)} />
+              {accountDropdownToggle && <AccountDropdown username={user.username} />}
             </>
           ) : 
           <>
