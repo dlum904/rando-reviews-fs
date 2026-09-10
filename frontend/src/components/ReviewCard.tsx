@@ -21,9 +21,11 @@ const ReviewCard = ({ review, setSelectedReview }: { review: Review, setSelected
 
 			<h2 className="!mb-0 transition-colors group-hover:text-blue-300">{review.title}</h2>
 
-			{/* TODO: Add a star rating component */}
 			<p className="flex items-center gap-1.5 text-sm text-blue-400">
-				<FaStar className="h-3.5 w-3.5" />
+
+				{[1, 2, 3, 4, 5].map((value: number) => (
+					<FaStar key={value} className={`h-3.5 w-3.5 ${value <= review.rating ? "fill-blue-500" : "fill-slate-400"}`} />
+				))}
 				<span className="text-slate-300">{review.rating} Stars</span>
 			</p>
 

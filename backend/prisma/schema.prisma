@@ -55,8 +55,8 @@ model Comment {
   reviewId    String
   author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String
-  upVotes     Int      @default(0)
-  downVotes   Int      @default(0)
+  // upVotes     Int      @default(0)
+  // downVotes   Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

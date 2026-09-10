@@ -3,6 +3,14 @@ import type { User } from '../types/review.tsx';
 import AccountDropdown from './AccountDropdown.tsx';
 import { useState } from "react";
 
+/**
+ * Header component
+ * @param {Object} props - The component props
+ * @param {User} props.user - The user object
+ * @param {Function} props.setReviewFormToggle - The function to set the review form toggle
+ * @param {Function} props.setAuthModal - The function to set the auth modal
+ * @returns {JSX.Element} The Header component
+ */
 const Header = ({ user, setReviewFormToggle, setAuthModal }: { user: User, setReviewFormToggle: (reviewFormToggle: boolean) => void, setAuthModal: (authModal: boolean) => void }) => {
 
   const [accountDropdownToggle, setAccountDropdownToggle] = useState(false);

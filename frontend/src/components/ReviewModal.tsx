@@ -1,45 +1,81 @@
-import type { Review, Comment } from '../types/review.tsx';
+import type { Review, Comment, User } from '../types/review.tsx';
 import { useState } from 'react';
-import { FaThumbsUp, FaThumbsDown, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
+const API_URL = import.meta.env.VITE_API_URL;
 
 type ReviewModalProps = {
 	review: Review | null,
 	setSelectedReview: (review: Review | null) => void
+	user: User | undefined
 }
 
-const ReviewModal = ({ review, setSelectedReview }: ReviewModalProps) => {
+const ReviewModal = ({ review, setSelectedReview, user }: ReviewModalProps) => {
 
-	const [comments, setComments] = useState<Comment[]>(review?.comments || []); // TODO: Fetch and POST comments
+	type CommentFormData = {
+		author: string;
+		text: string;
+	}
 
+	// Default comment form data is an empty comment
+	const defaultCommentFormData: CommentFormData = {
+		author: user?.username || '',
+		text: ''
+	};
+
+	const [comments, setComments] = useState<Comment[]>(review?.comments || []);
+	const [commentFormData, setCommentFormData] = useState<CommentFormData>(defaultCommentFormData);
 
 	/**
-	 * Handle comment vote
-	 * @param {string} commentId - The id of the comment
-	 * @param {'up' | 'down'} vote - The vote to be cast
+	 * Handle comment change
+	 * @param {React.ChangeEvent<HTMLTextAreaElement>} e - The event object
 	 */
-	const handleCommentVote = (commentId: string, vote: 'up' | 'down') => {
+	const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		setCommentFormData({ ...commentFormData, text: e.target.value });
+		console.log('commentFormData', commentFormData);
+	}
 
-		// TODO: Users should only be able to upvote/downvote once.
-		// Add array of upvoted/downvoted comments to User's data.
+	/**
+	 * Add a comment to the review
+	 * @param {React.FormEvent<HTMLFormElement>} e - The event object
+	 */
+	const addComment = async (e: React.FormEvent<HTMLFormElement>) => {
 		
-		const currentComment = comments.find(comment => comment.id === commentId);
+		console.log('addComment called');
 
-		if (currentComment) {
+		e.preventDefault();
 
-			if (vote === 'up') {
-				// If the comment has upVotes, increment it, otherwise set it to 0
-				currentComment.upVotes ? currentComment.upVotes++ : 0;
+		try {
+
+			const response = await fetch(`${API_URL}/comments/add/${review?.id}`, {
+				method: 'POST',
+				body: JSON.stringify(commentFormData),
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			
+			if (!response.ok) {
+				
+				throw new Error('Failed to add comment');
+
 			} else {
-				// If the comment has downVotes, increment it, otherwise set it to 0
-				currentComment.downVotes ? currentComment.downVotes++ : 0;
+
+				const data = await response.json();
+				if (data.success) {
+					setComments([...comments, data.comment]);
+					setCommentFormData(defaultCommentFormData);
+				} else {
+					console.error('Error adding comment:', data.message);
+				}
+				
 			}
 
-			console.log(currentComment);
+		} catch (error) {
 
-			// Update the comments state with the new comment
-			setComments(comments.map(comment => comment.id === commentId ? currentComment : comment));
+			console.error('Error adding comment:', error);
+
 		}
-
 	}
 
 	return review ? (
@@ -71,10 +107,11 @@ const ReviewModal = ({ review, setSelectedReview }: ReviewModalProps) => {
 
 						<div className="flex flex-col gap-3 border-t border-slate-800 pt-4 text-left min-h-75">
 
-							{/* TODO: Add a star rating component */}
 							<p className="flex items-center gap-1.5 text-sm text-blue-400">
-								<FaStar className="h-3.5 w-3.5" />
-								<span className="text-slate-300">{review.rating} Stars</span>
+							{[1, 2, 3, 4, 5].map((value: number) => (
+								<FaStar key={value} className={`h-3 w-3 ${value <= review.rating ? "fill-blue-500" : "fill-slate-400"}`} />
+							))}
+				<span className="text-slate-300">{review.rating} Stars</span>
 							</p>
 
 							<p className="leading-relaxed text-slate-300">{review.text}</p>
@@ -98,27 +135,16 @@ const ReviewModal = ({ review, setSelectedReview }: ReviewModalProps) => {
 													<span className="text-slate-700">|</span>
 													<p>{comment.date}</p>
 												</div>
-												<div className="flex gap-3">
 
-													<button className="flex items-center justify-center gap-1.5 rounded-md border border-slate-700 bg-slate-900 px-2.5 py-1 text-xs text-slate-300 transition-colors cursor-pointer hover:border-blue-500 hover:bg-blue-600 hover:text-white"
-														onClick={() => handleCommentVote(comment.id, 'up')}
-													>
-														<FaThumbsUp className="h-3 w-3" />
-														<span>{comment.upVotes || 0}</span>
-													</button>
-
-													<button className="flex items-center justify-center gap-1.5 rounded-md border border-slate-700 bg-slate-900 px-2.5 py-1 text-xs text-slate-300 transition-colors cursor-pointer hover:border-slate-500 hover:bg-slate-700 hover:text-white"
-														onClick={() => handleCommentVote(comment.id, 'down')}
-													>
-														<FaThumbsDown className="h-3 w-3" />
-														<span>{comment.downVotes || 0}</span>
-													</button>
-
-												</div>
 											</li>
 										)
 									})}
 								</ul>
+
+								<form onSubmit={addComment} className="flex flex-col gap-2">
+									<textarea className="rounded-lg border border-slate-700 bg-slate-950/60 p-2.5 text-slate-100 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40" name="text" placeholder="Add a comment" value={commentFormData.text} onChange={handleCommentChange} rows={3} />
+									<button className="mt-2 rounded-lg bg-blue-600 px-4 py-2.5 font-medium text-white shadow-lg shadow-blue-950/50 transition-colors cursor-pointer hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900" type="submit">Add Comment</button>
+								</form>
 
 							</div>
 

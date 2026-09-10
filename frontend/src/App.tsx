@@ -23,6 +23,9 @@ const App = () => {
   const [reviewFormToggle, setReviewFormToggle] = useState<boolean>(false);
   const [authModal, setAuthModal] = useState<boolean>(false);
 
+  /**
+   * Fetch the user from the database
+   */
   useEffect(() => {
 
     const fetchUser = async () => {
@@ -76,6 +79,9 @@ const App = () => {
 
   }, []);
 
+  /**
+   * Fetch the reviews from the database
+   */
   useEffect(() => {
 
     const fetchReviews = async () => {
@@ -117,7 +123,11 @@ const App = () => {
 
   }, []);
 
-  // Filter reviews based on search query and selected category
+  /**
+   * Filter reviews based on search query and selected category
+   * useMemo so we only re-filter when the reviews, selected category, or search query changes
+   * @returns {Review[]} The filtered reviews
+   */
   // useMemo so we only re-filter when the reviews, selected category, or search query changes
   const filteredReviews = useMemo(() => {
 
@@ -127,7 +137,7 @@ const App = () => {
       console.log('App.tsx: reviews fetched', reviews);
       return reviews.filter((review) => review.title.toLowerCase().includes(searchQuery.toLowerCase()) && (selectedCategory === 'ALL' || review.category === selectedCategory));
     }
-    
+
   }, [reviews, selectedCategory, searchQuery]);
 
   console.log('App.tsx: filteredReviews', filteredReviews);
@@ -143,10 +153,10 @@ const App = () => {
       <main className="flex-1">
 
         {/* Only render the review modal if a review is selected */}
-        {selectedReview && < ReviewModal key={selectedReview.id} review={selectedReview} setSelectedReview={setSelectedReview} />}
+        {selectedReview && < ReviewModal key={selectedReview.id} review={selectedReview} setSelectedReview={setSelectedReview} user={user || undefined} />}
 
         {/* Only render the review form if reviews are fetched */}
-        {reviews && < ReviewForm reviews={reviews} setReviews={setReviews} reviewFormToggle={reviewFormToggle} setReviewFormToggle={setReviewFormToggle} />}
+        {reviews && < ReviewForm reviews={reviews} setReviews={setReviews} reviewFormToggle={reviewFormToggle} setReviewFormToggle={setReviewFormToggle} user={user || undefined}/>}
 
         < CategoryBar selectedCategory={selectedCategory} setSelectedCategory= {setSelectedCategory} />
         < SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />

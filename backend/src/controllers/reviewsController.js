@@ -23,7 +23,7 @@ const getReviews = async (req, res) => {
 
 		return res
 			.status(200)
-			.json({ message: 'Reviews fetched successfully', reviews: reviews.map(serializeReview) });
+			.json({ sucess: true, message: 'Reviews fetched successfully', reviews: reviews.map(serializeReview) });
 
 	} catch (error) {
 
@@ -73,7 +73,7 @@ const getReviewById = async (req, res) => {
 	
 			return res
 				.status(200)
-				.json({ message: 'Review found', review: serializeReview(review) });
+				.json({ success: true, message: 'Review found', review: serializeReview(review) });
 	
 		}
 
@@ -102,7 +102,7 @@ const createReview = async (req, res) => {
 	console.log("reviewsController.js: createReview called:", body);
 
 	const { title, text, category, rating } = body;
-	const userId = req.user.id; // TODO: add user id to the request object.
+	const userId = req.user.id;
 
 	if (!title || !text || !category || !rating) {
 
@@ -127,7 +127,7 @@ const createReview = async (req, res) => {
 
 			return res
 				.status(201)
-				.json({ message: 'Review created successfully', review: serializeReview(review) });
+				.json({ success: true, message: 'Review created successfully', review: serializeReview(review) });
 
 		} catch (error) {
 
@@ -178,7 +178,7 @@ const deleteReview = async (req, res) => {
 
 		return res
 			.status(200)
-			.json({ message: 'Review deleted successfully', deleteReview });
+			.json({ success: true, message: 'Review deleted successfully', deleteReview });
 
 
 	} catch (error) {

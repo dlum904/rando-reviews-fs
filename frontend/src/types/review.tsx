@@ -1,14 +1,14 @@
 type Comment = {
 	id: string;
+	authorId: string;
 	text: string;
 	author: string;
 	date: string;
-	upVotes?: number;
-	downVotes?: number;
 }
 
 type Review = {
 	id: string;
+	authorId: string;
 	author: string;
 	title: string;
 	category: string;

@@ -23,7 +23,7 @@ const getComments = async (req, res) => {
 
 		return res
 			.status(200)
-			.json({ message: 'Comments fetched successfully', comments: comments.map(serializeComment) });
+			.json({ success: true, message: 'Comments fetched successfully', comments: comments.map(serializeComment) });
 
 	} catch (error) {
 
@@ -73,7 +73,7 @@ const getCommentById = async (req, res) => {
 	
 			return res
 				.status(200)
-				.json({ message: 'Comment found', comment: serializeComment(comment) });
+				.json({ success: true, message: 'Comment found', comment: serializeComment(comment) });
 	
 		}
 
@@ -101,8 +101,17 @@ const createComment = async (req, res) => {
 
 	console.log("commentsController.js: createComment called:", body);
 
-	const { text, reviewId } = body;
-	const userId = req.user.id; // TODO: add user id to the request object.
+	const reviewId = req.params.reviewId;	// Get the review id from the request parameters
+	const { text } = body;	// Get the text from the request body
+	const userId = req.user.id;	// Get the user id from the request user
+
+	if (!userId) {
+
+		return res
+			.status(401)
+			.json({ message: 'Unauthorized' });
+
+	}
 
 	if (!text || !reviewId) {
 
@@ -125,7 +134,7 @@ const createComment = async (req, res) => {
 
 			return res
 				.status(201)
-				.json({ message: 'Comment created successfully', comment: serializeComment(comment) });
+				.json({ success: true, message: 'Comment created successfully', comment: serializeComment(comment) });
 
 		} catch (error) {
 
