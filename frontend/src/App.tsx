@@ -9,6 +9,7 @@ import CategoryBar from './components/CategoryBar.tsx';
 import ReviewFeed from './components/ReviewFeed.tsx';
 import ReviewModal from './components/ReviewModal.tsx';
 import ReviewForm from './components/ReviewForm.tsx';
+import { devLog } from './utils/logger.ts';
 import './App.css'
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -16,7 +17,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const App = () => {
 
   const [user, setUser] = useState<User | null>(null);
-  const [reviews, setReviews] = useState<Review[] | null>(null);
+  const [reviews, setReviews] = useState<Review[] | []>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
@@ -30,7 +31,7 @@ const App = () => {
 
     const fetchUser = async () => {
 
-      console.log('App.tsx: fetchUser called');
+      devLog('App.tsx: fetchUser called');
 
       try {
 
@@ -42,7 +43,7 @@ const App = () => {
 
           if (res.status === 401) {
 
-            console.log('User is guest');
+            devLog('User is guest');
             setUser(null);
 
           } else {
@@ -58,7 +59,7 @@ const App = () => {
 
             const data = await res.json();
             setUser(data.user);
-            console.log('User is logged in', data.user);
+            devLog('User is logged in', data.user);
 
           } else {
 
@@ -86,7 +87,7 @@ const App = () => {
 
     const fetchReviews = async () => {
 
-      console.log('App.tsx: fetchReviews called');
+      devLog('App.tsx: fetchReviews called');
 
       try {
 
@@ -128,19 +129,18 @@ const App = () => {
    * useMemo so we only re-filter when the reviews, selected category, or search query changes
    * @returns {Review[]} The filtered reviews
    */
-  // useMemo so we only re-filter when the reviews, selected category, or search query changes
   const filteredReviews = useMemo(() => {
 
-    console.log('App.tsx: filteredReviews called');
+    devLog('App.tsx: filteredReviews called');
 
     if (reviews) {
-      console.log('App.tsx: reviews fetched', reviews);
+      devLog('App.tsx: reviews fetched', reviews);
       return reviews.filter((review) => review.title.toLowerCase().includes(searchQuery.toLowerCase()) && (selectedCategory === 'ALL' || review.category === selectedCategory));
     }
 
   }, [reviews, selectedCategory, searchQuery]);
 
-  console.log('App.tsx: filteredReviews', filteredReviews);
+  devLog('App.tsx: filteredReviews', filteredReviews);
 
   return (
 
@@ -153,10 +153,10 @@ const App = () => {
       <main className="flex-1">
 
         {/* Only render the review modal if a review is selected */}
-        {selectedReview && < ReviewModal key={selectedReview.id} review={selectedReview} setSelectedReview={setSelectedReview} user={user || undefined} />}
+        { selectedReview && < ReviewModal key={selectedReview.id} review={selectedReview} setSelectedReview={setSelectedReview} reviews={reviews} setReviews={setReviews} user={user || undefined} />}
 
         {/* Only render the review form if reviews are fetched */}
-        {reviews && < ReviewForm reviews={reviews} setReviews={setReviews} reviewFormToggle={reviewFormToggle} setReviewFormToggle={setReviewFormToggle} user={user || undefined}/>}
+        {reviewFormToggle && < ReviewForm reviews={reviews} setReviews={setReviews} setReviewFormToggle={setReviewFormToggle} user={user || undefined}/>}
 
         < CategoryBar selectedCategory={selectedCategory} setSelectedCategory= {setSelectedCategory} />
         < SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />

@@ -1,3 +1,5 @@
+// Common types
+
 type Comment = {
 	id: string;
 	authorId: string;

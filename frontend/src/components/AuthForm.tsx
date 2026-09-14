@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { validateUsername, validatePassword } from '../utils/validators.ts';
+import { devLog } from '../utils/logger.ts';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+/**
+ * AuthForm component
+ * Will display a login or register form depending on the loginOrRegister prop
+ * @param loginOrRegister 'login' or 'register'
+ * @returns {JSX.Element} - The AuthForm component
+ */
 const AuthForm = ({ loginOrRegister } : { loginOrRegister: 'login' | 'register' }) => {
 
 	const [username, setUsername] = useState<string>('');
@@ -56,20 +63,23 @@ const AuthForm = ({ loginOrRegister } : { loginOrRegister: 'login' | 'register' 
 			return
 		}
 
-		console.log(username, password);
-
 		if (loginOrRegister === 'login') {
-			console.log('login');
+			devLog('login');
 		} else {
-			console.log('register');
+			devLog('register');
 		}
 
 		submitForm(username, password);
 	}
 
+	/**
+	 * Submit the form
+	 * @param username - The username to submit
+	 * @param password - The password to submit
+	 */
 	const submitForm = async (username: string, password: string) => {
 
-		console.log('submitForm');
+		devLog('submitForm');
 
 		let url = loginOrRegister === 'login' ? '/auth/login' : '/auth/register';
 
@@ -91,8 +101,11 @@ const AuthForm = ({ loginOrRegister } : { loginOrRegister: 'login' | 'register' 
 			} else {
 	
 				const data = await response.json();
-				console.log(data);
-				document.location.href = '/';
+				if (data.success) {
+					document.location.href = '/';
+				} else {
+					console.error('Error submitting form:', data.message);
+				}
 
 			}
 

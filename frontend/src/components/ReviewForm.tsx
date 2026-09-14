@@ -1,13 +1,13 @@
 import type { Review, User } from '../types/review.tsx';
 import { useState } from 'react';
+import { devLog } from '../utils/logger.ts';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 // Props for the ReviewForm component
 type ReviewFormProps = {
 	reviews: Review[],
-	setReviews: (review : Review[]) => void ,
-	reviewFormToggle: boolean,
+	setReviews: (reviews : Review[]) => void,
 	setReviewFormToggle: (reviewFormToggle: boolean) => void,
 	user: User | undefined
 }
@@ -16,14 +16,13 @@ type ReviewFormProps = {
  * ReviewForm component
  * @param {ReviewFormProps} reviews - The reviews array
  * @param {ReviewFormProps} setReviews - The function to set the reviews array
- * @param {ReviewFormProps} reviewFormToggle - The state of the review form toggle
  * @param {ReviewFormProps} setReviewFormToggle - The function to set the review form toggle
+ * @param {ReviewFormProps} user - The user to display
  * @returns {JSX.Element} - The ReviewForm component
  */
-const ReviewForm = ({ reviews, setReviews, reviewFormToggle, setReviewFormToggle, user } : ReviewFormProps) => {
+const ReviewForm = ({ reviews, setReviews, setReviewFormToggle, user } : ReviewFormProps) => {
 
 	type ReviewFormData = {
-
 		author: string;
 		title: string;
 		category: string;
@@ -34,7 +33,6 @@ const ReviewForm = ({ reviews, setReviews, reviewFormToggle, setReviewFormToggle
 
 	// Default form data is an empty review
 	const defaultFormData: ReviewFormData = {
-
 		author: user?.username || '',
 		title: '',
 		category: '',
@@ -55,7 +53,7 @@ const ReviewForm = ({ reviews, setReviews, reviewFormToggle, setReviewFormToggle
 
 		e.preventDefault();
 
-		console.log(e.target.name, e.target.value);
+		devLog('ReviewForm.tsx: handleChange called', e.target.name, e.target.value);
 
 		const { name, value } = e.target;
 
@@ -65,7 +63,6 @@ const ReviewForm = ({ reviews, setReviews, reviewFormToggle, setReviewFormToggle
 		};
 		
 		setFormData(newReview);
-		console.log(formData);
 	};
 
 	/**
@@ -74,13 +71,12 @@ const ReviewForm = ({ reviews, setReviews, reviewFormToggle, setReviewFormToggle
 	 * @param value - The value of the rating
 	 */
 	const handleRatingClick = (value: string) => {
-		console.log(value);
+		devLog(value);
 		const newReview: ReviewFormData = {
 			...formData,
 			rating: parseInt(value)
 		};
 		setFormData(newReview);
-		console.log(formData);
 	}
 
 	/**
@@ -89,7 +85,7 @@ const ReviewForm = ({ reviews, setReviews, reviewFormToggle, setReviewFormToggle
 	 * @param e - The event object
 	 */
   const handleFormSubmit = async(e: React.FormEvent<HTMLFormElement>) => {    
-		console.log(formData);
+		devLog(formData);
 		e.preventDefault();
 
 		const newReview: ReviewFormData = {
@@ -114,10 +110,10 @@ const ReviewForm = ({ reviews, setReviews, reviewFormToggle, setReviewFormToggle
 				const data = await response.json();
 				if (data.success) {
 
-					setReviews([data.review as Review,...reviews]);
+					setReviews([data.review as Review,...reviews]); // Add the new review to the reviews array
 					setFormData(defaultFormData); // Reset the form data to the default data
 					
-					console.log("Form submitted");
+					devLog("Form submitted");
 					setReviewFormToggle(false);
 
 				} else {
@@ -144,8 +140,7 @@ const ReviewForm = ({ reviews, setReviews, reviewFormToggle, setReviewFormToggle
 	const inputClassNames = "rounded-lg border border-slate-700 bg-slate-950/60 p-2.5 text-slate-100 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40";
 	const buttonClassNames = "mt-2 rounded-lg bg-blue-600 px-4 py-2.5 font-medium text-white shadow-lg shadow-blue-950/50 transition-colors cursor-pointer hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900";
 
-	// Only show the review form if the review form is toggled on.
-	return reviewFormToggle ? (
+	return (
 
 		<div className="fixed inset-0 z-30 bg-slate-950/80 backdrop-blur-sm flex justify-center items-center p-4">
 
@@ -213,7 +208,7 @@ const ReviewForm = ({ reviews, setReviews, reviewFormToggle, setReviewFormToggle
 
 </div>
 
-	) : null;
+	);
 }
 
 export default ReviewForm

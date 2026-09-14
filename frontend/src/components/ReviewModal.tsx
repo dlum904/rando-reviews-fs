@@ -1,15 +1,28 @@
 import type { Review, Comment, User } from '../types/review.tsx';
 import { useState } from 'react';
 import { FaStar } from "react-icons/fa";
+import { devLog } from '../utils/logger.ts';
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 type ReviewModalProps = {
-	review: Review | null,
-	setSelectedReview: (review: Review | null) => void
-	user: User | undefined
+	user: User | undefined,
+	review: Review,
+	setSelectedReview: (review: Review | null) => void,
+	reviews: Review[],
+	setReviews: (reviews : Review[]) => void,
 }
 
-const ReviewModal = ({ review, setSelectedReview, user }: ReviewModalProps) => {
+/**
+ * ReviewModal component
+ * @param {ReviewModalProps} user - The user to display
+ * @param {ReviewModalProps} review - The review to display
+ * @param {ReviewModalProps} setSelectedReview - The function to set the selected review
+ * @param {ReviewModalProps} reviews - The reviews to display
+ * @param {ReviewModalProps} setReviews - The function to set the reviews
+ * @returns {JSX.Element} - The ReviewModal component
+ */
+const ReviewModal = ({ user, review, setSelectedReview, reviews, setReviews }: ReviewModalProps) => {
 
 	type CommentFormData = {
 		author: string;
@@ -31,7 +44,6 @@ const ReviewModal = ({ review, setSelectedReview, user }: ReviewModalProps) => {
 	 */
 	const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setCommentFormData({ ...commentFormData, text: e.target.value });
-		console.log('commentFormData', commentFormData);
 	}
 
 	/**
@@ -40,7 +52,7 @@ const ReviewModal = ({ review, setSelectedReview, user }: ReviewModalProps) => {
 	 */
 	const addComment = async (e: React.FormEvent<HTMLFormElement>) => {
 		
-		console.log('addComment called');
+		devLog('addComment called');
 
 		e.preventDefault();
 
@@ -63,8 +75,17 @@ const ReviewModal = ({ review, setSelectedReview, user }: ReviewModalProps) => {
 
 				const data = await response.json();
 				if (data.success) {
+					
+					// Update the comments array with the new comment
 					setComments([...comments, data.comment]);
 					setCommentFormData(defaultCommentFormData);
+					
+					// Update the review in the reviews array with the new comment
+					// This is necessary because the review is not updated in the reviews array when the comment is added.
+					// So if user deselects review, and then selects it again, the comments will not be displayed. This fixes that.
+					const updatedReview = { ...review, comments: [...comments, data.comment] };
+					setReviews(reviews.map((rev) => rev.id === updatedReview.id ? updatedReview : rev));
+					
 				} else {
 					console.error('Error adding comment:', data.message);
 				}

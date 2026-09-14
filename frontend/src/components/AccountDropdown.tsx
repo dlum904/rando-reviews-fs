@@ -7,6 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL;
  * @returns {JSX.Element} The AccountDropdown component
  */
 const AccountDropdown = ({ username }: { username: string }) => {
+  
   const itemClassNames = "block w-full px-4 py-2 text-left text-sm text-slate-300 transition-colors cursor-pointer hover:bg-blue-500/10 hover:text-blue-300";
 
 	const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
