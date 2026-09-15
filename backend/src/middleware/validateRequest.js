@@ -24,18 +24,6 @@ const validateRequest = (schema) => {
 			// Get all the error messages from the zod schema
 			const errorMessages = result.error.flatten().fieldErrors		// Flatten the errors and get the field errors
 			console.log("validateRequest.js: errorMessages:", errorMessages);
-
-			// The error messages will be in the format:
-			// 	{
-			// 		"error": {
-			// 				"status": [
-			// 						"Invalid option: expected one of \"FOOD\"|\"MOVIES\"|\"PLACES\"|\"SERVICES\"|\"OTHER\""
-			// 				],
-			// 				"rating": [
-			// 						"Rating must be between 1 and 5"
-			// 				]
-			// 		}
-			// }
 			
 			return res.status(400).json({ error: errorMessages }); // Return a 400 error with the error messages
 		}

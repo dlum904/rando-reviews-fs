@@ -2,20 +2,20 @@ This is my React/typescript app I made to brush up on Full Stack Development.
 
 Currently, the Frontend is mostly built.
 Planning to add a Backend using express.js
-Planning on wrapping backend code in Vercel serverless function.
+Planning on wrapping backend code in Vercel serverless function, or use Render
 
 
 THE PLAN:
-my-review-app/       (Root Git Repository)
-├── frontend/        (React/Vite project)
-│   ├── src/
-│   ├── package.json
-│   └── vite.config.js
-├── backend/         (Express project)
+rando-reviews-fs       
+├── api/             <-- Rename 'backend' to 'api' and move to the root
 │   ├── controllers/
-│   ├── package.json
-│   └── index.js
-└── README.md        (Explains the whole project)
+│   └── index.js     <-- Change app.listen() to module.exports = app;
+├── frontend/        <-- Vercel can build this folder as your frontend project
+│   ├── src/
+│   └── ...
+├── package.json     <-- Move your backend dependencies here to the root
+└── vercel.json      <-- Add a root vercel.json file for routing rules
+
 
 
 NOTE:
@@ -47,8 +47,6 @@ Comment = {
 	text: string,
 	author: User
 	date: string,
-	upVotes?: number,
-	downVotes?: number,
 }
 
 Review = {
