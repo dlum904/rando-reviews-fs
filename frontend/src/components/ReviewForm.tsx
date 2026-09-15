@@ -108,7 +108,7 @@ const ReviewForm = ({ reviews, setReviews, setReviewFormToggle, user } : ReviewF
 			if (response.ok) {
 
 				const data = await response.json();
-				if (data.success) {
+				if (data.status === 'success') {
 
 					setReviews([data.review as Review,...reviews]); // Add the new review to the reviews array
 					setFormData(defaultFormData); // Reset the form data to the default data

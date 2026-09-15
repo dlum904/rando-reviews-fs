@@ -1,24 +1,13 @@
-import express from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
 import "dotenv/config";
+import app from "./app.js";
 import { connectDB, disconnectDB } from './config/db.js';
-import reviewsRoutes from "./routes/reviewsRoutes.js";
-import commentsRoutes from "./routes/commentsRoutes.js";
-import authRoutes from "./routes/authRoutes.js";
 
-await connectDB();
+// Local development entry point. On Vercel the app is served by api/index.js instead, so
+// nothing in this file runs in production.
 
-const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({
-	origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-	credentials: true,
-}));
-app.use(cookieParser());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+await connectDB();
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
@@ -44,12 +33,3 @@ process.on('SIGINT', async () => {
 	disconnectDB();
 	process.exit(0);
 });
-
-app.get('/', (req, res) => {
-	// res.send('Hello, World!');
-	res.json({ message: 'Hello, World!' });
-});
-
-app.use('/reviews', reviewsRoutes);
-app.use('/comments', commentsRoutes);
-app.use('/auth', authRoutes);

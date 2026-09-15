@@ -2,7 +2,6 @@ import { useState, useMemo, useEffect } from 'react';
 import Header from './components/Header.tsx';
 import Footer from './components/Footer.tsx';
 import type { Review, User } from './types/review.tsx';
-// import { seedReviews } from './data/seedReviews.ts';
 import AuthModal from './components/AuthModal.tsx';
 import SearchBar from './components/SearchBar.tsx';
 import CategoryBar from './components/CategoryBar.tsx';
@@ -146,7 +145,8 @@ const App = () => {
 
     <div className="flex flex-col min-h-svh bg-slate-950 text-slate-300">
 
-      {authModal && < AuthModal />}
+      {/* Only render the auth modal if the auth modal is true */}
+      { authModal && < AuthModal setAuthModal={setAuthModal} />}
 
       < Header user={user} setReviewFormToggle={setReviewFormToggle} setAuthModal={setAuthModal} />
 

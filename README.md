@@ -1,20 +1,35 @@
 This is my React/typescript app I made to brush up on Full Stack Development.
 
-Currently, the Frontend is mostly built.
-Planning to add a Backend using express.js
-Planning on wrapping backend code in Vercel serverless function, or use Render
+Frontend is React/Vite/Tailwind, backend is express.js with Prisma/Postgres.
+Both are deployed from this one repo to a single Vercel project, with the
+backend wrapped in a Vercel serverless function.
 
 
-THE PLAN:
-rando-reviews-fs       
-├── api/             <-- Rename 'backend' to 'api' and move to the root
-│   ├── controllers/
-│   └── index.js     <-- Change app.listen() to module.exports = app;
-├── frontend/        <-- Vercel can build this folder as your frontend project
-│   ├── src/
-│   └── ...
-├── package.json     <-- Move your backend dependencies here to the root
-└── vercel.json      <-- Add a root vercel.json file for routing rules
+STRUCTURE:
+rando-reviews-fs
+├── api/
+│   └── index.js     <-- exports the express app; ONLY file here, since Vercel
+│                        turns every file under api/ into its own function
+├── server/          <-- the actual backend
+│   ├── app.js       <-- builds the express app, mounts routes under /api
+│   ├── dev.js       <-- local-only entry: app.listen()
+│   ├── config/  controllers/  middleware/  routes/  utils/  validators/
+├── prisma/          <-- schema, migrations, seed
+├── frontend/        <-- Vite app, built to frontend/dist
+├── package.json     <-- backend deps + npm workspace for frontend
+├── prisma.config.ts
+└── vercel.json      <-- build config + /api/* and SPA routing rules
+
+
+RUNNING LOCALLY:
+npm install          <-- installs root + frontend (npm workspaces)
+npm run dev:api      <-- express on :5001
+npm run dev:web      <-- vite on :3000, proxies /api to :5001
+npm run seed         <-- reseed the database
+npm run build        <-- prisma generate + frontend build (what Vercel runs)
+
+The frontend calls the API through the relative path /api (VITE_API_URL), so
+the same code works behind the vite proxy in dev and on one domain in prod.
 
 
 

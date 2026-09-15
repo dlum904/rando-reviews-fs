@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { prisma, disconnectDB } from "../src/config/db.js";
+import { prisma, disconnectDB } from "../server/config/db.js";
 
 const SEED_PASSWORD = "Password123";
 

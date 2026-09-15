@@ -7,16 +7,25 @@
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 
-const adapter = new PrismaPg({connectionString: process.env.DATABASE_URL});	// Create a new PrismaPg adapter instance with the connection string from the environment variables.
-
 // Create an instance of the PrismaClient class, which will be used to interact with the database.
 // The log option is set to log different levels of messages based on the environment (development or production).
-const prisma = new PrismaClient({
-	adapter,
-	log: process.env.NODE_ENV === 'development' // We get process.env.NODE_ENV from the environment variables, which is the current environment of the application.
-		? ['query', 'info', 'warn', 'error'] 
-		: ['error'],
-});
+const createPrismaClient = () => {
+
+	const adapter = new PrismaPg({connectionString: process.env.DATABASE_URL});	// Create a new PrismaPg adapter instance with the connection string from the environment variables.
+
+	return new PrismaClient({
+		adapter,
+		log: process.env.NODE_ENV === 'development' // We get process.env.NODE_ENV from the environment variables, which is the current environment of the application.
+			? ['query', 'info', 'warn', 'error'] 
+			: ['error'],
+	});
+};
+
+// A warm serverless instance re-runs this module, and nodemon re-imports it on every restart.
+// Caching the client on globalThis keeps us from opening a new connection pool each time.
+const globalForPrisma = globalThis;
+const prisma = globalForPrisma.prisma ?? createPrismaClient();
+globalForPrisma.prisma = prisma;
 
 /**
  * Connects to the database using the PrismaClient instance.

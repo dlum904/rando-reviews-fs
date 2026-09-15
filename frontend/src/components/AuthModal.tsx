@@ -1,17 +1,29 @@
 import { useState } from 'react';
 import AuthForm from './AuthForm.tsx';
+import { FaTimes } from 'react-icons/fa';
 
-const AuthModal = () => {
+const AuthModal = ({ setAuthModal }: { setAuthModal: (authModal: boolean) => void }) => {
 
 	const [loginOrRegister, setLoginOrRegister] = useState<'login' | 'register'>('login');
 
 	return (
 		<div className="fixed inset-0 z-30 bg-slate-950/80 backdrop-blur-sm flex justify-center items-center p-4">
 			<article className="bg-slate-900 p-6 rounded-xl w-1/2 max-lg:w-11/12 max-h-[80vh] border border-slate-700 ring-1 ring-blue-500/30 shadow-2xl shadow-black/60 z-10 flex flex-col overflow-hidden">
-			<h1 className="!mb-4 !text-3xl text-left">{loginOrRegister === 'login' ? 'Log In' : 'Register'}</h1>
+			<div className="flex justify-between items-center gap-2 mb-4">
+				<h1 className="!mb-0 !text-3xl text-left">{loginOrRegister === 'login' ? 'Log In' : 'Register'}</h1>
+				<button
+					className="rounded-md px-2 py-0.5 text-slate-400 transition-colors cursor-pointer hover:bg-blue-600 hover:text-white"
+					aria-label="Close auth modal"
+					type="button"
+					onClick={() => setAuthModal(false)}
+				>
+					<FaTimes />
+				</button>
+			</div>
 				<AuthForm loginOrRegister={loginOrRegister} />
 			<button className="mt-5 border-t border-slate-800 pt-4 text-sm font-medium text-blue-400 transition-colors cursor-pointer hover:text-blue-300" onClick={() => setLoginOrRegister(loginOrRegister === 'login' ? 'register' : 'login')}>{loginOrRegister === 'login' ? 'Register' : 'Log In'}</button>
 			</article>
+			<div className="fixed top-0 left-0 w-full h-full z-0" onClick={() => setAuthModal(false)} />
 		</div>
   );
 };

@@ -1,6 +1,6 @@
 import type { Review, Comment, User } from '../types/review.tsx';
 import { useState } from 'react';
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaTimes } from "react-icons/fa";
 import { devLog } from '../utils/logger.ts';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -74,7 +74,7 @@ const ReviewModal = ({ user, review, setSelectedReview, reviews, setReviews }: R
 			} else {
 
 				const data = await response.json();
-				if (data.success) {
+				if (data.status === 'success') {
 					
 					// Update the comments array with the new comment
 					setComments([...comments, data.comment]);
@@ -117,7 +117,7 @@ const ReviewModal = ({ user, review, setSelectedReview, reviews, setReviews }: R
 							aria-label="Close review"
 							onClick={() => setSelectedReview(null)}
 						>
-							x
+							<FaTimes />
 						</button>
 
 					</div>

@@ -12,5 +12,9 @@ export default defineConfig({
   ],
   server: {
     port: 3000,
+    // Mirrors the single-domain setup on Vercel so VITE_API_URL can stay relative in dev.
+    proxy: {
+      '/api': 'http://localhost:5001',
+    },
   },
 })

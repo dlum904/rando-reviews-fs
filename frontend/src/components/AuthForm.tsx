@@ -101,7 +101,7 @@ const AuthForm = ({ loginOrRegister } : { loginOrRegister: 'login' | 'register' 
 			} else {
 	
 				const data = await response.json();
-				if (data.success) {
+				if (data.status === 'success') {
 					document.location.href = '/';
 				} else {
 					console.error('Error submitting form:', data.message);
