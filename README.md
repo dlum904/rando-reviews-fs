@@ -1,11 +1,19 @@
+# Rando Reviews
+
+### Description
 This is my React/typescript app I made to brush up on Full Stack Development.
 
 Frontend is React/Vite/Tailwind, backend is express.js with Prisma/Postgres.
 Both are deployed from this one repo to a single Vercel project, with the
 backend wrapped in a Vercel serverless function.
 
+### NOTE:
+CSS styling was done using tailwindcss and was mostly done with AI.
+Everything else was coded manually, with some AI assistance for finding syntax issues.
 
-STRUCTURE:
+---
+
+## STRUCTURE:
 rando-reviews-fs
 ├── api/
 │   └── index.js     <-- exports the express app; ONLY file here, since Vercel
@@ -20,65 +28,42 @@ rando-reviews-fs
 ├── prisma.config.ts
 └── vercel.json      <-- build config + /api/* and SPA routing rules
 
-
-RUNNING LOCALLY:
+## RUNNING LOCALLY:
 npm install          <-- installs root + frontend (npm workspaces)
 npm run dev:api      <-- express on :5001
 npm run dev:web      <-- vite on :3000, proxies /api to :5001
 npm run seed         <-- reseed the database
 npm run build        <-- prisma generate + frontend build (what Vercel runs)
 
-The frontend calls the API through the relative path /api (VITE_API_URL), so
-the same code works behind the vite proxy in dev and on one domain in prod.
+---
 
+## Routes
 
+### Auth — `/api/auth`
+| Method | Path        | Auth |
+| ------ | ----------- | ---- |
+| POST   | `/register` | No   |
+| POST   | `/login`    | No   |
+| POST   | `/logout`   | No   |
+| GET    | `/getUser`  | Yes  |
 
-NOTE:
-CSS styling was done using tailwindcss and was mostly done with AI.
-Everything else was coded manually, with some AI assistance for finding syntax issues.
+### Reviews — `/api/reviews`
+| Method | Path                 | Auth |
+| ------ | -------------------- | ---- |
+| GET    | `/`                  | No   |
+| GET    | `/:reviewId`         | No   |
+| POST   | `/add`               | Yes  |
+| DELETE | `/delete/:reviewId`  | Yes  |
 
-///////////////////////////////////////////
+| Method | Path                      | Auth |
+| ------ | ------------------------- | ---- |
+| GET    | `/:reviewId`              | No   |
+| GET    | `/:reviewId/:commentId`   | No   |
+| POST   | `/add/:reviewId`          | Yes  |
 
-PLANNED BE ROUTES:
-
-reviews
-/reviews
-
-comments
-/comments
-
-authroutes
-/auth/register
-/auth/login
-/auth/logout
-
-
-//////////////////////////////////////////
-
-PLANNED SCHEMAS:
-
-Comment = {
-	id: string,
-	text: string,
-	author: User
-	date: string,
-}
-
-Review = {
-	id: string,
-	author: User,
-	subject: string,
-	category: string,
-	rating: number,
-	text: string,
-	date: string,
-	comments?: Comment[],
-}
-
-User = {
-	id: string;
-	username: string,
-	password: string,
-	reviews?: Review[],
-	comments?: Comment[],
-}
+### Comments — `/api/comments`
+| Method | Path                      | Auth |
+| ------ | ------------------------- | ---- |
+| GET    | `/:reviewId`              | No   |
+| GET    | `/:reviewId/:commentId`   | No   |
+| POST   | `/add/:reviewId`          | Yes  |

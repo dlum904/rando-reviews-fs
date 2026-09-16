@@ -73,7 +73,7 @@ const getReviewById = async (req, res) => {
 	
 			return res
 				.status(200)
-				.json({ success: true, message: 'Review found', review: serializeReview(review) });
+				.json({ status: "success", message: 'Review found', review: serializeReview(review) });
 	
 		}
 
@@ -127,7 +127,7 @@ const createReview = async (req, res) => {
 
 			return res
 				.status(201)
-				.json({ success: true, message: 'Review created successfully', review: serializeReview(review) });
+				.json({ status: "success", message: 'Review created successfully', review: serializeReview(review) });
 
 		} catch (error) {
 
@@ -178,7 +178,7 @@ const deleteReview = async (req, res) => {
 
 		return res
 			.status(200)
-			.json({ success: true, message: 'Review deleted successfully', deleteReview });
+			.json({ status: "success", message: 'Review deleted successfully', deleteReview });
 
 
 	} catch (error) {
