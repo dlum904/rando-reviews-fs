@@ -1,6 +1,6 @@
 # Rando Reviews
 
-<img src="docs/images/home.png" width="700"/>
+<img src="docs/images/Preview.png" width="700"/>
 
 ### Description
 This is my React/typescript app I made to brush up on Full Stack Development.
