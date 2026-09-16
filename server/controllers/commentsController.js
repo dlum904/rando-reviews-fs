@@ -23,7 +23,7 @@ const getComments = async (req, res) => {
 
 		return res
 			.status(200)
-			.json({ success: true, message: 'Comments fetched successfully', comments: comments.map(serializeComment) });
+			.json({ status: "success", message: 'Comments fetched successfully', comments: comments.map(serializeComment) });
 
 	} catch (error) {
 
@@ -73,7 +73,7 @@ const getCommentById = async (req, res) => {
 	
 			return res
 				.status(200)
-				.json({ success: true, message: 'Comment found', comment: serializeComment(comment) });
+				.json({ status: "success", message: 'Comment found', comment: serializeComment(comment) });
 	
 		}
 
@@ -134,7 +134,7 @@ const createComment = async (req, res) => {
 
 			return res
 				.status(201)
-				.json({ success: true, message: 'Comment created successfully', comment: serializeComment(comment) });
+				.json({ status: "success", message: 'Comment created successfully', comment: serializeComment(comment) });
 
 		} catch (error) {
 

@@ -14,6 +14,7 @@ Everything else was coded manually, with some AI assistance for finding syntax i
 ---
 
 ## STRUCTURE:
+```
 rando-reviews-fs
 ├── api/
 │   └── index.js     <-- exports the express app; ONLY file here, since Vercel
@@ -27,6 +28,7 @@ rando-reviews-fs
 ├── package.json     <-- backend deps + npm workspace for frontend
 ├── prisma.config.ts
 └── vercel.json      <-- build config + /api/* and SPA routing rules
+```
 
 ## RUNNING LOCALLY:
 npm install          <-- installs root + frontend (npm workspaces)
