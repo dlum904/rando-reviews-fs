@@ -1,5 +1,7 @@
 # Rando Reviews
 
+![Rando Reviews home page](docs/images/home.png)
+
 ### Description
 This is my React/typescript app I made to brush up on Full Stack Development.
 
